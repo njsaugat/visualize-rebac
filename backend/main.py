@@ -1,197 +1,112 @@
-import asyncio
-from permit_client import permit_client
+from fastapi import FastAPI, HTTPException
+from typing import List
+from pydantic import BaseModel
+from dotenv import load_dotenv
+from permit import Permit
+from fastapi.middleware.cors import CORSMiddleware
+import os
+load_dotenv()
 
-async def setup_github_rebac():
-    # 1. Create Resources
-    resources = {
-        'repo': await permit_client.create_resource({
-            'key': 'repo',
-            'name': 'Repository',
-            'description': 'A GitHub repository resource',
-            'actions': {
-                'read': {},
-                'write': {},
-                'delete': {},
-                'admin': {}
-            }
-        }),
+class Node(BaseModel):
+    id: str
+    group: str
+
+class Link(BaseModel):
+    source: str
+    target: str
+
+class GraphResponse(BaseModel):
+    nodes: List[Node]
+    links: List[Link]
+
+app = FastAPI()
+permit = Permit(
+    token=os.getenv("PERMIT_API_KEY"),
+    url="https://cloudpdp.api.permit.io",
+    pdp="https://cloudpdp.api.permit.io"
+)
+
+origins = [
+    "http://localhost:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/api/permission-graph", response_model=GraphResponse)
+async def get_permission_graph():
+    try:
+        resources = await permit.api.resources.list()        
+        nodes = []
+        links = []
         
-        'organization': await permit_client.create_resource({
-            'key': 'organization',
-            'name': 'Organization',
-            'description': 'A GitHub organization resource',
-            'actions': {
-                'read': {},
-                'write': {},
-                'delete': {},
-                'admin': {}
-            }
-        }),
+        # root node
+        nodes.append(Node(
+            id="github",
+            group="store"
+        ))
         
-        'team': await permit_client.create_resource({
-            'key': 'team',
-            'name': 'Team',
-            'description': 'A GitHub team resource',
-            'actions': {
-                'read': {},
-                'write': {},
-                'delete': {},
-                'admin': {}
-            }
-        }),
+        for resource in resources:
+            resource_key = resource.key
+            nodes.append(Node(
+                id=resource_key.lower(),
+                group="type"
+            ))            
+            links.append(Link(
+                source="github",
+                target=resource_key.lower()
+            ))
+            
+            if resource.roles:
+                for role_key, _ in resource.roles.items():
+                    nodes.append(Node(
+                        id=f"{role_key}_{resource_key}".lower(),
+                        group="relations"
+                    ))                    
+                    links.append(Link(
+                        source=resource_key,
+                        target=f"{role_key}_{resource_key}".lower()
+                    ))
+            
+            if resource.relations:
+                for relation_key, relation_data in resource.relations.items():
+                    nodes.append(Node(
+                        id=f"{relation_key}_{resource_key}".lower(),
+                        group="relations"
+                    ))
+                    
+                    links.append(Link(
+                        source=resource_key.lower(),
+                        target=f"{relation_key}_{resource_key}".lower()
+                    ))
+                    
+                    target_resource = relation_data.resource
+                    if target_resource:
+                        links.append(Link(
+                            source=f"{relation_key}_{resource_key}".lower(),
+                            target=target_resource.lower()
+                        ))
         
-        'user': await permit_client.create_resource({
-            'key': 'user',
-            'name': 'User',
-            'description': 'A GitHub user resource',
-            'actions': {
-                'read': {},
-                'write': {},
-                'admin': {}
-            }
-        })
-    }
-
-    # 2. Create Repository Roles
-    repo_roles = {
-        'reader': await permit_client.create_role({
-            'key': 'repo_reader',
-            'name': 'Repository Reader',
-            'description': 'Can read repository contents',
-            'permissions': [{
-                'resource_key': 'repo',
-                'actions': ['read']
-            }]
-        }),
+        unique_nodes = list({node.id: node for node in nodes}.values())
+        unique_links = list({(link.source, link.target): link for link in links}.values())
         
-        'writer': await permit_client.create_role({
-            'key': 'repo_writer',
-            'name': 'Repository Writer',
-            'description': 'Can read and write repository contents',
-            'permissions': [{
-                'resource_key': 'repo',
-                'actions': ['read', 'write']
-            }]
-        }),
-        
-        'maintainer': await permit_client.create_role({
-            'key': 'repo_maintainer',
-            'name': 'Repository Maintainer',
-            'description': 'Can manage repository settings',
-            'permissions': [{
-                'resource_key': 'repo',
-                'actions': ['read', 'write', 'admin']
-            }]
-        }),
-        
-        'admin': await permit_client.create_role({
-            'key': 'repo_admin',
-            'name': 'Repository Admin',
-            'description': 'Has full access to repository',
-            'permissions': [{
-                'resource_key': 'repo',
-                'actions': ['read', 'write', 'delete', 'admin']
-            }]
-        })
-    }
+        return GraphResponse(
+            nodes=unique_nodes,
+            links=unique_links
+        )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error fetching permission graph: {str(e)}"
+        )
 
-    # 3. Create Organization Roles
-    org_roles = {
-        'member': await permit_client.create_role({
-            'key': 'org_member',
-            'name': 'Organization Member',
-            'description': 'Basic organization member',
-            'permissions': [{
-                'resource_key': 'organization',
-                'actions': ['read']
-            }]
-        }),
-        
-        'owner': await permit_client.create_role({
-            'key': 'org_owner',
-            'name': 'Organization Owner',
-            'description': 'Has full access to organization',
-            'permissions': [{
-                'resource_key': 'organization',
-                'actions': ['read', 'write', 'delete', 'admin']
-            }]
-        })
-    }
-
-    # 4. Create Role Derivation Rules
-    derivation_rules = [
-        await permit_client.create_role_derivation({
-            'role_key': 'org_owner',
-            'on_resource': 'organization',
-            'grants_role': 'repo_admin',
-            'on_resource_type': 'repo',
-            'when': {
-                'context': {
-                    'organization': {'id': '{organization.id}'}
-                }
-            }
-        }),
-        
-        await permit_client.create_role_derivation({
-            'role_key': 'org_member',
-            'on_resource': 'team',
-            'grants_role': 'repo_reader',
-            'on_resource_type': 'repo',
-            'when': {
-                'context': {
-                    'team': {'id': '{team.id}'}
-                }
-            }
-        })
-    ]
-
-    return {
-        'resources': resources,
-        'repo_roles': repo_roles,
-        'org_roles': org_roles,
-        'derivation_rules': derivation_rules
-    }
-
-
-asyncio.run(setup_github_rebac())
-# if __name__=="main":
-# import asyncio
-
-# from permit import Permit
-# from fastapi import FastAPI, status, HTTPException
-# from fastapi.responses import JSONResponse
-
-# app = FastAPI()
-
-# # This line initializes the SDK and connects your python app
-
-# # to the Permit.io PDP container you've set up in the previous step.
-
-# permit = Permit(  # in production, you might need to change this url to fit your deployment
-#     pdp="https://cloudpdp.api.permit.io",  # your api key
-#     token="permit_key_wpyH73WEAGxzWrXsa4PZC5XNNIQCcvtAPatq874IcUBJ2Wr9snYzSYs74SrmhQoV6gvnwVrHpyWVbLopGcyyyq",
-# )
-
-# # This user was defined by you in the previous step and
-
-# # is already assigned with a role in the permission system.
-
-# user = {
-#     "id": "John@Doe.com",
-#     "firstName": "John",
-#     "lastName": "Doe",
-#     "email": "John@Doe.com",
-# }  # in a real app, you would typically decode the user id from a JWT token
-
-
-# @app.get("/")
-# async def check_permissions():  # After we created this user in the previous step, we also synced the user's identifier # to permit.io servers with permit.write(permit.api.syncUser(user)). The user identifier # can be anything (email, db id, etc) but must be unique for each user. Now that the # user is synced, we can use its identifier to check permissions with 'permit.check()'.
-#     permitted = await permit.check(user["id"], "publicize", "Repository")
-#     if not permitted:
-#         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail={
-#             "result": f"{user.get('firstName')} {user.get('lastName')} is NOT PERMITTED to read document!"
-#         })
-
-#     return JSONResponse(status_code=status.HTTP_200_OK, content={
-#         "result": f"{user.get('firstName')} {user.get('lastName')} is PERMITTED to read document!"
-#     })
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

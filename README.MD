@@ -30,6 +30,7 @@ This project demonstrates a visualization of ReBAC (Relationship-Based Access Co
    ```
 
 5. Set up the environment variables. Copy `.env.example` to create `.env`:
+    For now, I have add the Permit's API key inside the .env.example itself
    ```bash
    cp .env.example .env
    ```

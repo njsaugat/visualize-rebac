@@ -1,0 +1,378 @@
+[
+  {
+    "key": "repo",
+    "id": "201ee402c1d74e51a222fa4f3e5633eb",
+    "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+    "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+    "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+    "created_at": "2024-10-18T05:10:22+00:00",
+    "updated_at": "2024-10-18T05:10:22+00:00",
+    "name": "Repository",
+    "urn": "prn:permit-saugat:github-permit:repo",
+    "description": "GitHub Repository",
+    "actions": {
+      "owner": {
+        "name": "owner",
+        "description": null,
+        "attributes": null,
+        "id": "0aa7fbfd49cd4d9e9487d9ccb232d1b3",
+        "key": "owner"
+      },
+      "maintainer": {
+        "name": "maintainer",
+        "description": null,
+        "attributes": null,
+        "id": "9ea86d3526b640ff8992008f5999ad2b",
+        "key": "maintainer"
+      },
+      "writer": {
+        "name": "writer",
+        "description": null,
+        "attributes": null,
+        "id": "588ef0545d5e4d41bb45efdb109ad726",
+        "key": "writer"
+      },
+      "triager": {
+        "name": "triager",
+        "description": null,
+        "attributes": null,
+        "id": "96ee9d436f8942a38e52ee813cce32fb",
+        "key": "triager"
+      },
+      "reader": {
+        "name": "reader",
+        "description": null,
+        "attributes": null,
+        "id": "788cc5224c5b4abab4e4320c8866d9de",
+        "key": "reader"
+      },
+      "admin": {
+        "name": "admin",
+        "description": null,
+        "attributes": null,
+        "id": "23e807578f89488d9e1e083f3c5e6c36",
+        "key": "admin"
+      }
+    },
+    "type_attributes": null,
+    "attributes": {},
+    "roles": {
+      "Admin": {
+        "name": "Admin",
+        "description": "",
+        "permissions": [
+          "reader",
+          "owner",
+          "maintainer",
+          "admin",
+          "writer",
+          "triager"
+        ],
+        "attributes": {},
+        "extends": [],
+        "granted_to": null,
+        "key": "Admin",
+        "id": "7bd7d42ea09f48598fd1d662eafb419c",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "201ee402c1d74e51a222fa4f3e5633eb",
+        "resource": "repo",
+        "created_at": "2024-10-18T05:15:16+00:00",
+        "updated_at": "2024-10-18T05:15:16+00:00"
+      },
+      "Writer": {
+        "name": "Writer",
+        "description": "",
+        "permissions": ["writer", "reader"],
+        "attributes": {},
+        "extends": [],
+        "granted_to": null,
+        "key": "Writer",
+        "id": "d630fee26f4142f68b3e45626903d740",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "201ee402c1d74e51a222fa4f3e5633eb",
+        "resource": "repo",
+        "created_at": "2024-10-18T05:15:16+00:00",
+        "updated_at": "2024-10-18T05:15:16+00:00"
+      },
+      "Triager": {
+        "name": "Triager",
+        "description": "",
+        "permissions": ["triager"],
+        "attributes": {},
+        "extends": [],
+        "granted_to": null,
+        "key": "Triager",
+        "id": "5ebb6a3d971a4c9ab9fa9aef44ec0711",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "201ee402c1d74e51a222fa4f3e5633eb",
+        "resource": "repo",
+        "created_at": "2024-10-18T05:15:16+00:00",
+        "updated_at": "2024-10-18T05:15:16+00:00"
+      },
+      "Reader": {
+        "name": "Reader",
+        "description": "",
+        "permissions": ["reader"],
+        "attributes": {},
+        "extends": [],
+        "granted_to": null,
+        "key": "Reader",
+        "id": "b53767ed0677405c90194844ca443ca8",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "201ee402c1d74e51a222fa4f3e5633eb",
+        "resource": "repo",
+        "created_at": "2024-10-18T05:15:16+00:00",
+        "updated_at": "2024-10-18T05:15:16+00:00"
+      },
+      "Maintainer": {
+        "name": "Maintainer",
+        "description": "",
+        "permissions": ["triager", "reader", "writer", "maintainer"],
+        "attributes": {},
+        "extends": [],
+        "granted_to": null,
+        "key": "Maintainer",
+        "id": "4f42d4338ff54335890e3faf02a5c2b4",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "201ee402c1d74e51a222fa4f3e5633eb",
+        "resource": "repo",
+        "created_at": "2024-10-18T05:15:16+00:00",
+        "updated_at": "2024-10-18T05:15:16+00:00"
+      }
+    },
+    "relations": {},
+    "action_groups": {}
+  },
+  {
+    "key": "team",
+    "id": "36f52378018a46e29224a67b51be365d",
+    "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+    "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+    "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+    "created_at": "2024-10-18T05:10:25+00:00",
+    "updated_at": "2024-10-18T05:10:25+00:00",
+    "name": "Team",
+    "urn": "prn:permit-saugat:github-permit:team",
+    "description": "GitHub Team",
+    "actions": {
+      "member": {
+        "name": "member",
+        "description": null,
+        "attributes": null,
+        "id": "fab50cc50f694761bda088a254c8bd00",
+        "key": "member"
+      }
+    },
+    "type_attributes": null,
+    "attributes": {},
+    "roles": {
+      "member": {
+        "name": "member",
+        "description": "",
+        "permissions": ["member"],
+        "attributes": {},
+        "extends": [],
+        "granted_to": null,
+        "key": "member",
+        "id": "b04fec193ae642e196a206e2657f2dcf",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "36f52378018a46e29224a67b51be365d",
+        "resource": "team",
+        "created_at": "2024-10-18T05:21:58+00:00",
+        "updated_at": "2024-10-18T05:21:58+00:00"
+      }
+    },
+    "relations": {},
+    "action_groups": {}
+  },
+  {
+    "key": "organization",
+    "id": "4fd5a323a1dd4843a1cb08fa2ee00013",
+    "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+    "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+    "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+    "created_at": "2024-10-18T05:21:23+00:00",
+    "updated_at": "2024-10-18T05:21:23+00:00",
+    "name": "Organization",
+    "urn": "prn:permit-saugat:github-permit:organization",
+    "description": null,
+    "actions": {
+      "repoadmin": {
+        "name": "repoadmin",
+        "description": null,
+        "attributes": null,
+        "id": "3fe315eeba824cfd8e4db92334cc2a75",
+        "key": "repoadmin"
+      },
+      "repowriter": {
+        "name": "repowriter",
+        "description": null,
+        "attributes": null,
+        "id": "30e90639438b4ca492e47a1c8c6e08d8",
+        "key": "repowriter"
+      },
+      "reporeader": {
+        "name": "reporeader",
+        "description": null,
+        "attributes": null,
+        "id": "403ae94fc3b54fc09735e8c0e670f56e",
+        "key": "reporeader"
+      },
+      "owner": {
+        "name": "owner",
+        "description": null,
+        "attributes": null,
+        "id": "5c7ada771e5f44f78372c17a744d9039",
+        "key": "owner"
+      },
+      "member": {
+        "name": "member",
+        "description": null,
+        "attributes": null,
+        "id": "b1236cc982d749daa6a75c0ee9376015",
+        "key": "member"
+      }
+    },
+    "type_attributes": null,
+    "attributes": {},
+    "roles": {
+      "repo_admin": {
+        "name": "repo_admin",
+        "description": null,
+        "permissions": ["repowriter", "reporeader", "member", "repoadmin"],
+        "attributes": null,
+        "extends": [],
+        "granted_to": {
+          "when": { "no_direct_roles_on_object": false },
+          "id": "0c02335f464f4e798cc3332107db9afa",
+          "users_with_role": []
+        },
+        "key": "repo_admin",
+        "id": "ab886d72cf1a45ff8460d495ef7b63f8",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "4fd5a323a1dd4843a1cb08fa2ee00013",
+        "resource": "organization",
+        "created_at": "2024-10-18T05:21:23+00:00",
+        "updated_at": "2024-10-18T05:21:23+00:00"
+      },
+      "repo_reader": {
+        "name": "repo_reader",
+        "description": null,
+        "permissions": ["member", "reporeader"],
+        "attributes": null,
+        "extends": [],
+        "granted_to": null,
+        "key": "repo_reader",
+        "id": "25c74131a23c4d71be327fa5ba16472b",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "4fd5a323a1dd4843a1cb08fa2ee00013",
+        "resource": "organization",
+        "created_at": "2024-10-18T05:21:23+00:00",
+        "updated_at": "2024-10-18T05:21:23+00:00"
+      },
+      "repo_writer": {
+        "name": "repo_writer",
+        "description": null,
+        "permissions": ["member", "repowriter", "reporeader"],
+        "attributes": null,
+        "extends": [],
+        "granted_to": {
+          "when": { "no_direct_roles_on_object": false },
+          "id": "fa3344469292414baf826f5b36ddf351",
+          "users_with_role": []
+        },
+        "key": "repo_writer",
+        "id": "474c7143309849e6afa44644fe3232b6",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "4fd5a323a1dd4843a1cb08fa2ee00013",
+        "resource": "organization",
+        "created_at": "2024-10-18T05:21:23+00:00",
+        "updated_at": "2024-10-18T05:21:23+00:00"
+      },
+      "Owner": {
+        "name": "Owner",
+        "description": null,
+        "permissions": [
+          "owner",
+          "reporeader",
+          "repoadmin",
+          "repowriter",
+          "member"
+        ],
+        "attributes": null,
+        "extends": [],
+        "granted_to": null,
+        "key": "Owner",
+        "id": "a745a914ff3f4349b92729a0efe6fdce",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "4fd5a323a1dd4843a1cb08fa2ee00013",
+        "resource": "organization",
+        "created_at": "2024-10-18T05:21:23+00:00",
+        "updated_at": "2024-10-18T05:21:23+00:00"
+      },
+      "Member": {
+        "name": "Member",
+        "description": null,
+        "permissions": ["member"],
+        "attributes": null,
+        "extends": [],
+        "granted_to": null,
+        "key": "Member",
+        "id": "c318f7434ec5487ba466f5dd11ebb081",
+        "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+        "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+        "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+        "resource_id": "4fd5a323a1dd4843a1cb08fa2ee00013",
+        "resource": "organization",
+        "created_at": "2024-10-18T05:21:23+00:00",
+        "updated_at": "2024-10-18T05:21:23+00:00"
+      }
+    },
+    "relations": {},
+    "action_groups": {}
+  },
+  {
+    "key": "user",
+    "id": "53ebf9ad04d74a75a05a7de2b090617a",
+    "organization_id": "208906afe4b74ac9b3e56e25ed902543",
+    "project_id": "e47b36535df64e0fa2eb08f90501f62c",
+    "environment_id": "9b0b5b415ccc4a1c89d16607d4df5bb9",
+    "created_at": "2024-10-18T05:10:26+00:00",
+    "updated_at": "2024-10-18T05:10:26+00:00",
+    "name": "User",
+    "urn": "prn:permit-saugat:github-permit:user",
+    "description": "GitHub User",
+    "actions": {},
+    "type_attributes": null,
+    "attributes": {},
+    "roles": {},
+    "relations": {
+      "has": {
+        "description": null,
+        "resource_id": "36f52378018a46e29224a67b51be365d",
+        "resource": "team"
+      }
+    },
+    "action_groups": {}
+  }
+]
